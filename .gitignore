@@ -27,3 +27,9 @@ hs_err_pid*
 
 # Maven
 backend/target/
+
+# Visual Studio
+.vscode/
+
+# NodeJS
+node_modules/
