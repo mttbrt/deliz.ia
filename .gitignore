@@ -24,3 +24,12 @@ hs_err_pid*
 
 # Intellij
 .idea/
+
+# Maven
+backend/target/
+
+# Visual Studio
+.vscode/
+
+# NodeJS
+node_modules/

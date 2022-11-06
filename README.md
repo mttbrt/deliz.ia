@@ -1,6 +1,8 @@
-# deliz.ia
-
-A Restaurant Order-Taking Web App.
+<p align="center">
+    <img src="frontend/public/delizia_logo.svg" width="60%">
+    <br/>
+    <b>deliz.ia</b>: a restaurant order-taking web app.
+</p>
 
 ## Description
 
