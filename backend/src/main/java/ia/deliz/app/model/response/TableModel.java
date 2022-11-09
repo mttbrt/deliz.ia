@@ -1,6 +1,6 @@
-package ia.deliz.app.domain.model;
+package ia.deliz.app.model.response;
 
-import ia.deliz.app.domain.entity.Table;
+import ia.deliz.app.model.domain.TableEntity;
 import lombok.Getter;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
@@ -10,14 +10,12 @@ import org.springframework.hateoas.server.core.Relation;
 public class TableModel extends RepresentationModel<TableModel> {
 
   private final String name;
-  private final String description;
   private final Short x_pos;
   private final Short y_pos;
 
-  public TableModel(Table table) {
-    this.name = table.getName();
-    this.description = table.getDescription();
-    this.x_pos = table.getX_pos();
-    this.y_pos = table.getY_pos();
+  public TableModel(TableEntity tableEntity) {
+    this.name = tableEntity.getName();
+    this.x_pos = tableEntity.getX_pos();
+    this.y_pos = tableEntity.getY_pos();
   }
 }

@@ -1,6 +1,6 @@
-package ia.deliz.app.domain.entity;
+package ia.deliz.app.model.domain;
 
-import ia.deliz.app.domain.model.TableModel;
+import ia.deliz.app.model.dto.TableDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,33 +14,28 @@ import javax.persistence.Id;
 @Setter
 @NoArgsConstructor
 @Entity(name = "tbl_table")
-public class Table {
+public class TableEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Long id;
 
   private String name;
-  private String description;
   private Short x_pos;
   private Short y_pos;
 
-  public Table(TableModel model) {
+  public TableEntity(TableDTO model) {
     this.name = model.getName();
-    this.description = model.getDescription();
     this.x_pos = model.getX_pos();
     this.y_pos = model.getY_pos();
   }
 
-  public Table updateNonNullAttributes(TableModel table) {
+  public TableEntity updateNonNullAttributes(TableDTO table) {
     if (table.getName() != null) {
       this.name = table.getName();
     }
-    if (table.getDescription() != null) {
-      this.description = table.getDescription();
-    }
     if (table.getX_pos() != null) {
-      this.x_pos = table.getY_pos();
+      this.x_pos = table.getX_pos();
     }
     if (table.getY_pos() != null) {
       this.y_pos = table.getY_pos();

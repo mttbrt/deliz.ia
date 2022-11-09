@@ -1,7 +1,7 @@
 package ia.deliz.app.service.impl;
 
-import ia.deliz.app.domain.entity.Table;
-import ia.deliz.app.domain.model.TableModel;
+import ia.deliz.app.model.domain.TableEntity;
+import ia.deliz.app.model.dto.TableDTO;
 import ia.deliz.app.exception.EntityNotFoundException;
 import ia.deliz.app.repository.TableRepository;
 import ia.deliz.app.service.TableService;
@@ -16,34 +16,44 @@ public class TableServiceImpl implements TableService {
   @Autowired private TableRepository tableRepository;
 
   @Override
-  public Iterable<Table> getTables() {
+  public Iterable<TableEntity> getTables() {
     return tableRepository.findAll();
   }
 
   @Override
-  public Table createTable(TableModel table) {
-    Table entity = new Table(table);
-    return tableRepository.save(entity);
-  }
-
-  @Override
-  public Table replaceTable(Long tableId, TableModel table) {
-    if (!tableRepository.existsById(tableId)) {
-      throw new EntityNotFoundException(String.format("No table found with id %d", tableId));
-    }
-
-    Table replacedEntity = new Table(table);
-    return tableRepository.save(replacedEntity);
-  }
-
-  @Override
-  public Table updateTable(Long tableId, TableModel table) {
-    Optional<Table> existingEntity = tableRepository.findById(tableId);
+  public TableEntity getTableById(Long tableId) {
+    Optional<TableEntity> existingEntity = tableRepository.findById(tableId);
     if (existingEntity.isEmpty()) {
       throw new EntityNotFoundException(String.format("No table found with id %d", tableId));
     }
 
-    Table updatedEntity = existingEntity.get().updateNonNullAttributes(table);
+    return existingEntity.get();
+  }
+
+  @Override
+  public TableEntity createTable(TableDTO table) {
+    TableEntity entity = new TableEntity(table);
+    return tableRepository.save(entity);
+  }
+
+  @Override
+  public TableEntity replaceTable(Long tableId, TableDTO table) {
+    if (!tableRepository.existsById(tableId)) {
+      throw new EntityNotFoundException(String.format("No table found with id %d", tableId));
+    }
+
+    TableEntity replacedEntity = new TableEntity(table);
+    return tableRepository.save(replacedEntity);
+  }
+
+  @Override
+  public TableEntity updateTable(Long tableId, TableDTO table) {
+    Optional<TableEntity> existingEntity = tableRepository.findById(tableId);
+    if (existingEntity.isEmpty()) {
+      throw new EntityNotFoundException(String.format("No table found with id %d", tableId));
+    }
+
+    TableEntity updatedEntity = existingEntity.get().updateNonNullAttributes(table);
     return tableRepository.save(updatedEntity);
   }
 

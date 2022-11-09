@@ -1,8 +1,8 @@
 package ia.deliz.app.repository;
 
-import ia.deliz.app.domain.entity.Table;
+import ia.deliz.app.model.domain.TableEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TableRepository extends JpaRepository<Table, Long> {}
+public interface TableRepository extends JpaRepository<TableEntity, Long> {}
