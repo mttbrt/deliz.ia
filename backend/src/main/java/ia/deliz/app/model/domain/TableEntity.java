@@ -1,6 +1,8 @@
 package ia.deliz.app.model.domain;
 
+import com.google.common.base.Objects;
 import ia.deliz.app.model.dto.TableDTO;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +14,7 @@ import javax.persistence.Id;
 
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "tbl_table")
 public class TableEntity {
@@ -41,5 +44,21 @@ public class TableEntity {
       this.y_pos = table.getY_pos();
     }
     return this;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    TableEntity that = (TableEntity) o;
+    return Objects.equal(id, that.id)
+        && Objects.equal(name, that.name)
+        && Objects.equal(x_pos, that.x_pos)
+        && Objects.equal(y_pos, that.y_pos);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(id, name, x_pos, y_pos);
   }
 }

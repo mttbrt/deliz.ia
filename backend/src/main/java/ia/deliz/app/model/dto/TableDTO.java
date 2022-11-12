@@ -1,6 +1,7 @@
 package ia.deliz.app.model.dto;
 
 import ia.deliz.app.model.validation.NewEntity;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
@@ -12,6 +13,7 @@ import javax.validation.groups.Default;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class TableDTO {
 
   @NotNull(message = "The field 'name' cannot be null.", groups = {NewEntity.class})

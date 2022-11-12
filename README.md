@@ -10,8 +10,9 @@ This simple order-taking app wants to provide restaurants with an easy-to-use re
 
 ## Technologies
 
-- Spring Boot - 2.7.5
 - React - 18.2.0
+- Spring Boot - 2.7.5
+- PostreSQL - 15.0
 
 ## Features
 
