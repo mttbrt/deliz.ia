@@ -5,9 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Range;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import javax.validation.groups.Default;
 
@@ -15,7 +16,7 @@ import javax.validation.groups.Default;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TableDTO {
+public class MenuItemDTO {
 
   @NotNull(
       message = "The field 'name' cannot be null.",
@@ -27,21 +28,26 @@ public class TableDTO {
       groups = {NewEntity.class, Default.class})
   private String name;
 
-  // TODO: the table position should be placed in a different db entity
-
-  @NotNull(message = "The field 'x_pos' cannot be null.", groups = NewEntity.class)
-  @Range(
-      min = 1,
-      max = 3840,
-      message = "The field 'x_pos' must be in range [1, 3840] (inclusive).",
+  @Size(
+      max = 255,
+      message = "The field 'description' cannot be longer than 1024 characters.",
       groups = {NewEntity.class, Default.class})
-  private Short x_pos;
+  private String description;
 
-  @NotNull(message = "The field 'y_pos' cannot be null.", groups = NewEntity.class)
-  @Range(
-      min = 1,
-      max = 2160,
-      message = "The field 'y_pos' must be in range [1, 2160] (inclusive).",
+  @NotNull(
+      message = "The field 'price' cannot be null.",
+      groups = {NewEntity.class})
+  @Positive(
+      message = "The field 'price' cannot be negative.",
       groups = {NewEntity.class, Default.class})
-  private Short y_pos;
+  private Float price;
+
+  @NotNull(
+      message = "The field 'categoryId' cannot be null.",
+      groups = {NewEntity.class})
+  @Min(
+      value = 1,
+      message = "The field 'categoryId' cannot be negative.",
+      groups = {NewEntity.class, Default.class})
+  private Long categoryId;
 }

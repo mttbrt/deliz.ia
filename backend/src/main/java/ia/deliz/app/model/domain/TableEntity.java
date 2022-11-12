@@ -9,8 +9,8 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 @Getter
 @Setter
@@ -20,28 +20,29 @@ import javax.persistence.Id;
 public class TableEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(generator = "table_seq")
+  @SequenceGenerator(name = "table_seq", allocationSize = 1)
   private Long id;
 
   private String name;
   private Short x_pos;
   private Short y_pos;
 
-  public TableEntity(TableDTO model) {
-    this.name = model.getName();
-    this.x_pos = model.getX_pos();
-    this.y_pos = model.getY_pos();
+  public TableEntity(TableDTO dto) {
+    this.name = dto.getName();
+    this.x_pos = dto.getX_pos();
+    this.y_pos = dto.getY_pos();
   }
 
-  public TableEntity updateNonNullAttributes(TableDTO table) {
-    if (table.getName() != null) {
-      this.name = table.getName();
+  public TableEntity updateNonNullAttributes(TableDTO dto) {
+    if (dto.getName() != null) {
+      this.name = dto.getName();
     }
-    if (table.getX_pos() != null) {
-      this.x_pos = table.getX_pos();
+    if (dto.getX_pos() != null) {
+      this.x_pos = dto.getX_pos();
     }
-    if (table.getY_pos() != null) {
-      this.y_pos = table.getY_pos();
+    if (dto.getY_pos() != null) {
+      this.y_pos = dto.getY_pos();
     }
     return this;
   }

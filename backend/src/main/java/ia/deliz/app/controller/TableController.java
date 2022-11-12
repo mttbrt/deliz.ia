@@ -35,38 +35,38 @@ public class TableController {
     return tableResources;
   }
 
-  @GetMapping(path = "/{tableId}")
-  public TableModel getTableById(@PathVariable @NotNull @Size(min = 1) Long tableId) {
-    TableEntity table = tableService.getTableById(tableId);
+  @GetMapping(path = "/{id}")
+  public TableModel getTableById(@PathVariable @NotNull @Size(min = 1) Long id) {
+    TableEntity table = tableService.getTableById(id);
     return entityToModel(table);
   }
 
   @PostMapping(consumes = "application/json")
   @ResponseStatus(HttpStatus.CREATED)
-  public TableModel postTable(@RequestBody @Validated(NewEntity.class) TableDTO table) {
-    TableEntity savedTable = tableService.createTable(table);
+  public TableModel postTable(@RequestBody @Validated(NewEntity.class) TableDTO dto) {
+    TableEntity savedTable = tableService.createTable(dto);
     return entityToModel(savedTable);
   }
 
-  @PutMapping(path = "/{tableId}", consumes = "application/json")
+  @PutMapping(path = "/{id}", consumes = "application/json")
   public TableModel putTable(
-      @PathVariable @NotNull @Size(min = 1) Long tableId,
-      @RequestBody @Validated(NewEntity.class) TableDTO table) {
-    TableEntity savedTable = tableService.replaceTable(tableId, table);
+      @PathVariable @NotNull @Size(min = 1) Long id,
+      @RequestBody @Validated(NewEntity.class) TableDTO dto) {
+    TableEntity savedTable = tableService.replaceTable(id, dto);
     return entityToModel(savedTable);
   }
 
-  @PatchMapping(path = "/{tableId}", consumes = "application/json")
+  @PatchMapping(path = "/{id}", consumes = "application/json")
   public TableModel patchTable(
-      @PathVariable @NotNull @Size(min = 1) Long tableId, @RequestBody @Valid TableDTO table) {
-    TableEntity updatedTable = tableService.updateTable(tableId, table);
+      @PathVariable @NotNull @Size(min = 1) Long id, @RequestBody @Valid TableDTO dto) {
+    TableEntity updatedTable = tableService.updateTable(id, dto);
     return entityToModel(updatedTable);
   }
 
-  @DeleteMapping(path = "/{tableId}")
+  @DeleteMapping(path = "/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void deleteTable(@PathVariable @NotNull @Size(min = 1) Long tableId) {
-    tableService.deleteTable(tableId);
+  public void deleteTable(@PathVariable @NotNull @Size(min = 1) Long id) {
+    tableService.deleteTable(id);
   }
 
   private TableModel entityToModel(TableEntity entity) {

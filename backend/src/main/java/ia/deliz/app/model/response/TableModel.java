@@ -13,9 +13,9 @@ public class TableModel extends RepresentationModel<TableModel> {
   private final Short x_pos;
   private final Short y_pos;
 
-  public TableModel(TableEntity tableEntity) {
-    this.name = tableEntity.getName();
-    this.x_pos = tableEntity.getX_pos();
-    this.y_pos = tableEntity.getY_pos();
+  public TableModel(TableEntity entity) {
+    this.name = entity.getName();
+    this.x_pos = entity.getX_pos();
+    this.y_pos = entity.getY_pos();
   }
 }

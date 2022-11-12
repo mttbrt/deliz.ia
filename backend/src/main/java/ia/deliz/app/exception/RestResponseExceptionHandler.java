@@ -1,11 +1,8 @@
 package ia.deliz.app.exception;
 
 import ia.deliz.app.controller.TableController;
-import ia.deliz.app.model.domain.TableEntity;
 import ia.deliz.app.model.response.ErrorModel;
 import ia.deliz.app.model.response.ErrorType;
-import ia.deliz.app.model.response.TableAssembler;
-import ia.deliz.app.model.response.TableModel;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -37,7 +34,8 @@ public class RestResponseExceptionHandler {
               errors.add(error);
             });
     CollectionModel<ErrorModel> errorCollection = CollectionModel.of(errors);
-    return errorCollection.add(linkTo(methodOn(TableController.class).getTables()).withRel("tables"));
+    return errorCollection.add(
+        linkTo(methodOn(TableController.class).getTables()).withRel("tables"));
   }
 
   @ExceptionHandler(EntityNotFoundException.class)
@@ -45,6 +43,8 @@ public class RestResponseExceptionHandler {
   @ResponseBody
   protected ErrorModel handleEntityNotFoundException(EntityNotFoundException ex) {
     ErrorModel error = new ErrorModel(ErrorType.ENTITY_NOT_FOUND, ex.getMessage());
-    return error.add(linkTo(methodOn(TableController.class).getTables()).withRel("TODO")); // TODO: link to error definition
+    return error.add(
+        linkTo(methodOn(TableController.class).getTables())
+            .withRel("TODO")); // TODO: link to error definition
   }
 }
