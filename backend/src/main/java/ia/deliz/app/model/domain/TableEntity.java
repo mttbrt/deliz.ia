@@ -27,10 +27,10 @@ public class TableEntity {
   private Short x_pos;
   private Short y_pos;
 
-  public TableEntity(TableDTO model) {
-    this.name = model.getName();
-    this.x_pos = model.getX_pos();
-    this.y_pos = model.getY_pos();
+  public TableEntity(TableDTO table) {
+    this.name = table.getName();
+    this.x_pos = table.getX_pos();
+    this.y_pos = table.getY_pos();
   }
 
   public TableEntity updateNonNullAttributes(TableDTO table) {

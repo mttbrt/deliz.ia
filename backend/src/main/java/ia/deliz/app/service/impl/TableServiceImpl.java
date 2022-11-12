@@ -1,8 +1,8 @@
 package ia.deliz.app.service.impl;
 
+import ia.deliz.app.exception.EntityNotFoundException;
 import ia.deliz.app.model.domain.TableEntity;
 import ia.deliz.app.model.dto.TableDTO;
-import ia.deliz.app.exception.EntityNotFoundException;
 import ia.deliz.app.repository.TableRepository;
 import ia.deliz.app.service.TableService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -5,7 +5,6 @@ import ia.deliz.app.exception.EntityNotFoundException;
 import ia.deliz.app.model.domain.TableEntity;
 import ia.deliz.app.model.dto.TableDTO;
 import ia.deliz.app.repository.TableRepository;
-import ia.deliz.app.service.TableService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -60,9 +59,8 @@ class TableServiceImplTest {
     when(repository.findById(1L)).thenReturn(Optional.empty());
 
     // Test
-    Exception exception = assertThrows(EntityNotFoundException.class, () -> {
-      service.getTableById(1L);
-    });
+    Exception exception =
+        assertThrows(EntityNotFoundException.class, () -> service.getTableById(1L));
 
     // Verify output
     assertEquals("No table found with id 1", exception.getMessage());
@@ -109,9 +107,8 @@ class TableServiceImplTest {
     when(repository.existsById(1L)).thenReturn(false);
 
     // Test
-    Exception exception = assertThrows(EntityNotFoundException.class, () -> {
-      service.replaceTable(1L, in);
-    });
+    Exception exception =
+        assertThrows(EntityNotFoundException.class, () -> service.replaceTable(1L, in));
 
     // Verify output
     assertEquals("No table found with id 1", exception.getMessage());
@@ -143,9 +140,8 @@ class TableServiceImplTest {
     when(repository.findById(1L)).thenReturn(Optional.empty());
 
     // Test
-    Exception exception = assertThrows(EntityNotFoundException.class, () -> {
-      service.updateTable(1L, in);
-    });
+    Exception exception =
+        assertThrows(EntityNotFoundException.class, () -> service.updateTable(1L, in));
 
     // Verify output
     assertEquals("No table found with id 1", exception.getMessage());
@@ -170,9 +166,8 @@ class TableServiceImplTest {
     when(repository.existsById(1L)).thenReturn(false);
 
     // Test
-    Exception exception = assertThrows(EntityNotFoundException.class, () -> {
-      service.deleteTable(1L);
-    });
+    Exception exception =
+        assertThrows(EntityNotFoundException.class, () -> service.deleteTable(1L));
 
     // Verify output
     assertEquals("No table found with id 1", exception.getMessage());
