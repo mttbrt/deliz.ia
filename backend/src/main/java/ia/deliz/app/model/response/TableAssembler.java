@@ -11,12 +11,12 @@ public class TableAssembler extends RepresentationModelAssemblerSupport<TableEnt
   }
 
   @Override
-  protected TableModel instantiateModel(TableEntity tableEntity) {
-    return new TableModel(tableEntity);
+  protected TableModel instantiateModel(TableEntity entity) {
+    return new TableModel(entity);
   }
 
   @Override
-  public TableModel toModel(TableEntity tableEntity) {
-    return createModelWithId(tableEntity.getId(), tableEntity);
+  public TableModel toModel(TableEntity entity) {
+    return createModelWithId(entity.getId(), entity);
   }
 }

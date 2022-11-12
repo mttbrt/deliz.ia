@@ -17,7 +17,8 @@ import javax.persistence.*;
 public class MenuItemEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(generator = "menu_item_seq")
+  @SequenceGenerator(name = "menu_item_seq", allocationSize = 1)
   private Long id;
 
   @Column(unique = true)
@@ -26,28 +27,31 @@ public class MenuItemEntity {
   @Column(columnDefinition = "TEXT")
   private String description;
 
+  @Column(precision = 6, scale = 2)
   private Float price;
-  @ManyToOne private MenuCategoryEntity category;
 
-  public MenuItemEntity(MenuItemDTO menuItem) {
-    this.name = menuItem.getName();
-    this.description = menuItem.getDescription();
-    this.price = menuItem.getPrice();
-    this.category = menuItem.getCategory();
+  @ManyToOne(fetch = FetchType.LAZY)
+  private MenuCategoryEntity category;
+
+  public MenuItemEntity(MenuItemDTO dto, MenuCategoryEntity category) {
+    this.name = dto.getName();
+    this.description = dto.getDescription();
+    this.price = dto.getPrice();
+    this.category = category;
   }
 
-  public MenuItemEntity updateNonNullAttributes(MenuItemDTO menuItem) {
-    if (menuItem.getName() != null) {
-      this.name = menuItem.getName();
+  public MenuItemEntity updateNonNullAttributes(MenuItemDTO dto, MenuCategoryEntity category) {
+    if (dto.getName() != null) {
+      this.name = dto.getName();
     }
-    if (menuItem.getDescription() != null) {
-      this.description = menuItem.getDescription();
+    if (dto.getDescription() != null) {
+      this.description = dto.getDescription();
     }
-    if (menuItem.getPrice() != null) {
-      this.price = menuItem.getPrice();
+    if (dto.getPrice() != null) {
+      this.price = dto.getPrice();
     }
-    if (menuItem.getCategory() != null) {
-      this.category = menuItem.getCategory();
+    if (category != null) {
+      this.category = category;
     }
     return this;
   }

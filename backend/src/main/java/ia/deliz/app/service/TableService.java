@@ -7,13 +7,13 @@ public interface TableService {
 
   Iterable<TableEntity> getTables();
 
-  TableEntity getTableById(Long tableId);
+  TableEntity getTableById(Long id);
 
-  TableEntity createTable(TableDTO table);
+  TableEntity createTable(TableDTO dto);
 
-  TableEntity replaceTable(Long tableId, TableDTO table);
+  TableEntity replaceTable(Long id, TableDTO dto);
 
-  TableEntity updateTable(Long tableId, TableDTO table);
+  TableEntity updateTable(Long id, TableDTO dto);
 
-  void deleteTable(Long tableId);
+  void deleteTable(Long id);
 }

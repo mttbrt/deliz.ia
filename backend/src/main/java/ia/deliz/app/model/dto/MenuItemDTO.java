@@ -1,11 +1,12 @@
 package ia.deliz.app.model.dto;
 
-import ia.deliz.app.model.domain.MenuCategoryEntity;
 import ia.deliz.app.model.validation.NewEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
@@ -14,6 +15,7 @@ import javax.validation.groups.Default;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class MenuItemDTO {
 
   @NotNull(
@@ -41,7 +43,11 @@ public class MenuItemDTO {
   private Float price;
 
   @NotNull(
-      message = "The field 'category' cannot be null.",
+      message = "The field 'categoryId' cannot be null.",
       groups = {NewEntity.class})
-  private MenuCategoryEntity category;
+  @Min(
+      value = 1,
+      message = "The field 'categoryId' cannot be negative.",
+      groups = {NewEntity.class, Default.class})
+  private Long categoryId;
 }

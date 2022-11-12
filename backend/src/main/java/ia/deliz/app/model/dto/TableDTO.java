@@ -3,6 +3,7 @@ package ia.deliz.app.model.dto;
 import ia.deliz.app.model.validation.NewEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
 
@@ -13,6 +14,7 @@ import javax.validation.groups.Default;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class TableDTO {
 
   @NotNull(
@@ -24,6 +26,8 @@ public class TableDTO {
       message = "The field 'name' cannot be empty or longer than 255 characters.",
       groups = {NewEntity.class, Default.class})
   private String name;
+
+  // TODO: the table position should be placed in a different db entity
 
   @NotNull(message = "The field 'x_pos' cannot be null.", groups = NewEntity.class)
   @Range(

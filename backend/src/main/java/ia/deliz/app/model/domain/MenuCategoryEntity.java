@@ -2,7 +2,6 @@ package ia.deliz.app.model.domain;
 
 import com.google.common.base.Objects;
 import ia.deliz.app.model.dto.MenuCategoryDTO;
-import ia.deliz.app.model.dto.MenuItemDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,19 +17,20 @@ import javax.persistence.*;
 public class MenuCategoryEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(generator = "menu_category_seq")
+  @SequenceGenerator(name = "menu_category_seq", allocationSize = 1)
   private Long id;
 
   @Column(unique = true)
   private String name;
 
-  public MenuCategoryEntity(MenuCategoryDTO menuCategory) {
-    this.name = menuCategory.getName();
+  public MenuCategoryEntity(MenuCategoryDTO dto) {
+    this.name = dto.getName();
   }
 
-  public MenuCategoryEntity updateNonNullAttributes(MenuItemDTO menuItem) {
-    if (menuItem.getName() != null) {
-      this.name = menuItem.getName();
+  public MenuCategoryEntity updateNonNullAttributes(MenuCategoryDTO dto) {
+    if (dto.getName() != null) {
+      this.name = dto.getName();
     }
     return this;
   }
