@@ -36,10 +36,10 @@ public class MenuItemServiceImpl implements MenuItemService {
   @Override
   public MenuItemEntity createMenuItem(MenuItemDTO dto) {
     Optional<MenuCategoryEntity> categoryEntity =
-        menuCategoryRepository.findById(dto.getCategoryId());
+        menuCategoryRepository.findFirstByName(dto.getCategoryName());
     if (categoryEntity.isEmpty()) {
       throw new EntityNotFoundException(
-          String.format("No menu category found with id %d", dto.getCategoryId()));
+          String.format("No menu category found with name %s", dto.getCategoryName()));
     }
 
     MenuItemEntity entity = new MenuItemEntity(dto, categoryEntity.get());
@@ -53,10 +53,10 @@ public class MenuItemServiceImpl implements MenuItemService {
     }
 
     Optional<MenuCategoryEntity> categoryEntity =
-        menuCategoryRepository.findById(dto.getCategoryId());
+        menuCategoryRepository.findFirstByName(dto.getCategoryName());
     if (categoryEntity.isEmpty()) {
       throw new EntityNotFoundException(
-          String.format("No menu category found with id %d", dto.getCategoryId()));
+          String.format("No menu category found with name %s", dto.getCategoryName()));
     }
 
     MenuItemEntity replacedEntity = new MenuItemEntity(dto, categoryEntity.get());
@@ -71,10 +71,10 @@ public class MenuItemServiceImpl implements MenuItemService {
     }
 
     Optional<MenuCategoryEntity> categoryEntity =
-        menuCategoryRepository.findById(dto.getCategoryId());
+        menuCategoryRepository.findFirstByName(dto.getCategoryName());
     if (categoryEntity.isEmpty()) {
       throw new EntityNotFoundException(
-          String.format("No menu category found with id %d", dto.getCategoryId()));
+          String.format("No menu category found with name %s", dto.getCategoryName()));
     }
 
     MenuItemEntity updatedEntity =

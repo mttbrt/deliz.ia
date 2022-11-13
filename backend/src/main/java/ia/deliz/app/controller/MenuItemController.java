@@ -29,9 +29,9 @@ public class MenuItemController {
 
   @GetMapping
   public CollectionModel<MenuItemModel> getMenuItems() {
-    Iterable<MenuItemEntity> menuItems = menuItemService.getMenuItems();
+    Iterable<MenuItemEntity> entities = menuItemService.getMenuItems();
     CollectionModel<MenuItemModel> menuItemModels =
-        new MenuItemAssembler().toCollectionModel(menuItems);
+        new MenuItemAssembler().toCollectionModel(entities);
     menuItemModels.add(
         linkTo(methodOn(MenuItemController.class).getMenuItems()).withRel("menu-items"));
     return menuItemModels;

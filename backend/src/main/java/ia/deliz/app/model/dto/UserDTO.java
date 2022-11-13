@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import javax.validation.groups.Default;
 
@@ -15,39 +14,35 @@ import javax.validation.groups.Default;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MenuItemDTO {
+public class UserDTO {
 
   @NotNull(
-      message = "The field 'name' cannot be null.",
+      message = "The field 'username' cannot be null.",
       groups = {NewEntity.class})
   @Size(
       min = 1,
       max = 255,
-      message = "The field 'name' cannot be empty or longer than 255 characters.",
+      message = "The field 'username' cannot be empty or longer than 255 characters.",
       groups = {NewEntity.class, Default.class})
-  private String name;
-
-  @Size(
-      max = 255,
-      message = "The field 'description' cannot be longer than 1024 characters.",
-      groups = {NewEntity.class, Default.class})
-  private String description;
+  private String username;
 
   @NotNull(
-      message = "The field 'price' cannot be null.",
-      groups = {NewEntity.class})
-  @Positive(
-      message = "The field 'price' cannot be negative.",
-      groups = {NewEntity.class, Default.class})
-  private Float price;
-
-  @NotNull(
-      message = "The field 'categoryName' cannot be null.",
+      message = "The field 'password' cannot be null.",
       groups = {NewEntity.class})
   @Size(
       min = 1,
       max = 255,
-      message = "The field 'categoryName' cannot be empty or longer than 255 characters.",
+      message = "The field 'password' cannot be empty or longer than 255 characters.",
       groups = {NewEntity.class, Default.class})
-  private String categoryName;
+  private String password;
+
+  @NotNull(
+      message = "The field 'roleName' cannot be null.",
+      groups = {NewEntity.class})
+  @Size(
+      min = 1,
+      max = 255,
+      message = "The field 'roleName' cannot be empty or longer than 255 characters.",
+      groups = {NewEntity.class, Default.class})
+  private String roleName;
 }
