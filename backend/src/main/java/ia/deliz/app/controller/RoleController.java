@@ -26,21 +26,21 @@ public class RoleController {
   @Autowired private RoleService roleService;
 
   @GetMapping
-  public CollectionModel<RoleModel> getTables() {
+  public CollectionModel<RoleModel> getRoles() {
     Iterable<RoleEntity> entities = roleService.getRoles();
     CollectionModel<RoleModel> roleModels = new RoleAssembler().toCollectionModel(entities);
-    roleModels.add(linkTo(methodOn(RoleController.class).getTables()).withRel("roles"));
+    roleModels.add(linkTo(methodOn(RoleController.class).getRoles()).withRel("roles"));
     return roleModels;
   }
 
   @GetMapping(path = "/{id}")
-  public RoleModel getTableById(@PathVariable @NotNull @Size(min = 1) Long id) {
+  public RoleModel getRoleById(@PathVariable @NotNull @Size(min = 1) Long id) {
     RoleEntity entity = roleService.getRoleById(id);
     return entityToModel(entity);
   }
 
   private RoleModel entityToModel(RoleEntity entity) {
     RoleModel roleModel = new RoleAssembler().toModel(entity);
-    return roleModel.add(linkTo(methodOn(RoleController.class).getTables()).withRel("roles"));
+    return roleModel.add(linkTo(methodOn(RoleController.class).getRoles()).withRel("roles"));
   }
 }
