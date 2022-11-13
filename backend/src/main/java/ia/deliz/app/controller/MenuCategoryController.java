@@ -29,9 +29,9 @@ public class MenuCategoryController {
 
   @GetMapping
   public CollectionModel<MenuCategoryModel> getMenuCategories() {
-    Iterable<MenuCategoryEntity> menuCategories = menuCategoryService.getMenuCategories();
+    Iterable<MenuCategoryEntity> entities = menuCategoryService.getMenuCategories();
     CollectionModel<MenuCategoryModel> menuCategoryModels =
-        new MenuCategoryAssembler().toCollectionModel(menuCategories);
+        new MenuCategoryAssembler().toCollectionModel(entities);
     menuCategoryModels.add(
         linkTo(methodOn(MenuCategoryController.class).getMenuCategories())
             .withRel("menu-categories"));

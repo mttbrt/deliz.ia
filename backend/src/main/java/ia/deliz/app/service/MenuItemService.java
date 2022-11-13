@@ -9,7 +9,7 @@ public interface MenuItemService {
 
   MenuItemEntity getMenuItemById(Long id);
 
-  MenuItemEntity createMenuItem(MenuItemDTO id);
+  MenuItemEntity createMenuItem(MenuItemDTO dto);
 
   MenuItemEntity replaceMenuItem(Long id, MenuItemDTO dto);
 

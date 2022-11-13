@@ -29,38 +29,38 @@ public class TableController {
 
   @GetMapping
   public CollectionModel<TableModel> getTables() {
-    Iterable<TableEntity> tables = tableService.getTables();
-    CollectionModel<TableModel> tableResources = new TableAssembler().toCollectionModel(tables);
-    tableResources.add(linkTo(methodOn(TableController.class).getTables()).withRel("tables"));
-    return tableResources;
+    Iterable<TableEntity> entities = tableService.getTables();
+    CollectionModel<TableModel> tableModels = new TableAssembler().toCollectionModel(entities);
+    tableModels.add(linkTo(methodOn(TableController.class).getTables()).withRel("tables"));
+    return tableModels;
   }
 
   @GetMapping(path = "/{id}")
   public TableModel getTableById(@PathVariable @NotNull @Size(min = 1) Long id) {
-    TableEntity table = tableService.getTableById(id);
-    return entityToModel(table);
+    TableEntity entity = tableService.getTableById(id);
+    return entityToModel(entity);
   }
 
   @PostMapping(consumes = "application/json")
   @ResponseStatus(HttpStatus.CREATED)
   public TableModel postTable(@RequestBody @Validated(NewEntity.class) TableDTO dto) {
-    TableEntity savedTable = tableService.createTable(dto);
-    return entityToModel(savedTable);
+    TableEntity entity = tableService.createTable(dto);
+    return entityToModel(entity);
   }
 
   @PutMapping(path = "/{id}", consumes = "application/json")
   public TableModel putTable(
       @PathVariable @NotNull @Size(min = 1) Long id,
       @RequestBody @Validated(NewEntity.class) TableDTO dto) {
-    TableEntity savedTable = tableService.replaceTable(id, dto);
-    return entityToModel(savedTable);
+    TableEntity entity = tableService.replaceTable(id, dto);
+    return entityToModel(entity);
   }
 
   @PatchMapping(path = "/{id}", consumes = "application/json")
   public TableModel patchTable(
       @PathVariable @NotNull @Size(min = 1) Long id, @RequestBody @Valid TableDTO dto) {
-    TableEntity updatedTable = tableService.updateTable(id, dto);
-    return entityToModel(updatedTable);
+    TableEntity entity = tableService.updateTable(id, dto);
+    return entityToModel(entity);
   }
 
   @DeleteMapping(path = "/{id}")
@@ -70,7 +70,7 @@ public class TableController {
   }
 
   private TableModel entityToModel(TableEntity entity) {
-    TableModel tableResource = new TableAssembler().toModel(entity);
-    return tableResource.add(linkTo(methodOn(TableController.class).getTables()).withRel("tables"));
+    TableModel tableModel = new TableAssembler().toModel(entity);
+    return tableModel.add(linkTo(methodOn(TableController.class).getTables()).withRel("tables"));
   }
 }

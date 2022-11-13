@@ -74,10 +74,10 @@ class MenuItemServiceImplTest {
 
   @Test
   void add_new_menu_item() {
-    MenuItemDTO in = new MenuItemDTO("item-01", null, 1.5F, 1L);
-    MenuCategoryEntity category = new MenuCategoryEntity(1L, "category-01");
+    MenuItemDTO in = new MenuItemDTO("item-01", null, 1.5F, "Drinks");
+    MenuCategoryEntity category = new MenuCategoryEntity(1L, "Drinks");
     MenuItemEntity entity = new MenuItemEntity(in, category);
-    when(menuCategoryRepository.findById(1L)).thenReturn(Optional.of(category));
+    when(menuCategoryRepository.findFirstByName("Drinks")).thenReturn(Optional.of(category));
     when(menuItemRepository.save(entity)).thenReturn(entity);
 
     // Test
@@ -87,32 +87,32 @@ class MenuItemServiceImplTest {
     assertEquals(in.getName(), out.getName());
     assertEquals(in.getDescription(), out.getDescription());
     assertEquals(in.getPrice(), out.getPrice());
-    assertEquals(in.getCategoryId(), out.getCategory().getId());
+    assertEquals(in.getCategoryName(), out.getCategory().getName());
     verify(menuItemRepository, times(1)).save(any());
   }
 
   @Test
   void exception_is_thrown_when_adding_new_item_with_wrong_category_id() {
-    MenuItemDTO in = new MenuItemDTO("item-01", null, 1.5F, 1L);
-    when(menuCategoryRepository.findById(1L)).thenReturn(Optional.empty());
+    MenuItemDTO in = new MenuItemDTO("item-01", null, 1.5F, "Drinks");
+    when(menuCategoryRepository.findFirstByName("Drinks")).thenReturn(Optional.empty());
 
     // Test
     Exception exception =
         assertThrows(EntityNotFoundException.class, () -> service.createMenuItem(in));
 
     // Verify output
-    assertEquals("No menu category found with id 1", exception.getMessage());
-    verify(menuCategoryRepository, times(1)).findById(any());
+    assertEquals("No menu category found with name Drinks", exception.getMessage());
+    verify(menuCategoryRepository, times(1)).findFirstByName(any());
     verify(menuItemRepository, times(0)).save(any());
   }
 
   @Test
   void replace_menu_item_in_db() {
-    MenuItemDTO in = new MenuItemDTO("item-01", null, 1.5F, 1L);
-    MenuCategoryEntity category = new MenuCategoryEntity(1L, "category-01");
+    MenuItemDTO in = new MenuItemDTO("item-01", null, 1.5F, "Drinks");
+    MenuCategoryEntity category = new MenuCategoryEntity(1L, "Drinks");
     MenuItemEntity entity = new MenuItemEntity(in, category);
     when(menuItemRepository.existsById(1L)).thenReturn(true);
-    when(menuCategoryRepository.findById(1L)).thenReturn(Optional.of(category));
+    when(menuCategoryRepository.findFirstByName("Drinks")).thenReturn(Optional.of(category));
     when(menuItemRepository.save(entity)).thenReturn(entity);
 
     // Test
@@ -122,14 +122,14 @@ class MenuItemServiceImplTest {
     assertEquals(in.getName(), out.getName());
     assertEquals(in.getDescription(), out.getDescription());
     assertEquals(in.getPrice(), out.getPrice());
-    assertEquals(in.getCategoryId(), out.getCategory().getId());
+    assertEquals(in.getCategoryName(), out.getCategory().getName());
     verify(menuItemRepository, times(1)).existsById(any());
     verify(menuItemRepository, times(1)).save(any());
   }
 
   @Test
   void exception_is_thrown_when_replacing_wrong_id() {
-    MenuItemDTO in = new MenuItemDTO("item-01", null, 1.5F, 1L);
+    MenuItemDTO in = new MenuItemDTO("item-01", null, 1.5F, "Drinks");
     when(menuItemRepository.existsById(1L)).thenReturn(false);
 
     // Test
@@ -144,28 +144,28 @@ class MenuItemServiceImplTest {
 
   @Test
   void exception_is_thrown_when_replacing_new_item_with_wrong_category_id() {
-    MenuItemDTO in = new MenuItemDTO("item-01", null, 1.5F, 1L);
+    MenuItemDTO in = new MenuItemDTO("item-01", null, 1.5F, "Drinks");
     when(menuItemRepository.existsById(1L)).thenReturn(true);
-    when(menuCategoryRepository.findById(1L)).thenReturn(Optional.empty());
+    when(menuCategoryRepository.findFirstByName("Drinks")).thenReturn(Optional.empty());
 
     // Test
     Exception exception =
         assertThrows(EntityNotFoundException.class, () -> service.replaceMenuItem(1L, in));
 
     // Verify output
-    assertEquals("No menu category found with id 1", exception.getMessage());
+    assertEquals("No menu category found with name Drinks", exception.getMessage());
     verify(menuItemRepository, times(1)).existsById(any());
-    verify(menuCategoryRepository, times(1)).findById(any());
+    verify(menuCategoryRepository, times(1)).findFirstByName(any());
     verify(menuItemRepository, times(0)).save(any());
   }
 
   @Test
   void update_menu_item_in_db() {
-    MenuCategoryEntity category = new MenuCategoryEntity(1L, "category-01");
-    MenuItemDTO in = new MenuItemDTO("item-02", "description", 0.5F, 1L);
+    MenuCategoryEntity category = new MenuCategoryEntity(1L, "Drinks");
+    MenuItemDTO in = new MenuItemDTO("item-02", "description", 0.5F, "Drinks");
     MenuItemEntity existingEntity = new MenuItemEntity(1L, "item-01", null, 1.5F, category);
     when(menuItemRepository.findById(1L)).thenReturn(Optional.of(existingEntity));
-    when(menuCategoryRepository.findById(1L)).thenReturn(Optional.of(category));
+    when(menuCategoryRepository.findFirstByName("Drinks")).thenReturn(Optional.of(category));
     when(menuItemRepository.save(any())).thenAnswer(i -> i.getArguments()[0]);
 
     // Test
@@ -175,14 +175,14 @@ class MenuItemServiceImplTest {
     assertEquals(in.getName(), out.getName());
     assertEquals(in.getDescription(), out.getDescription());
     assertEquals(in.getPrice(), out.getPrice());
-    assertEquals(in.getCategoryId(), out.getCategory().getId());
+    assertEquals(in.getCategoryName(), out.getCategory().getName());
     verify(menuItemRepository, times(1)).findById(any());
     verify(menuItemRepository, times(1)).save(any());
   }
 
   @Test
   void exception_is_thrown_when_updating_wrong_id() {
-    MenuItemDTO in = new MenuItemDTO("item-01", null, 1.5F, 1L);
+    MenuItemDTO in = new MenuItemDTO("item-01", null, 1.5F, "Drinks");
     when(menuItemRepository.findById(1L)).thenReturn(Optional.empty());
 
     // Test
@@ -198,19 +198,19 @@ class MenuItemServiceImplTest {
   @Test
   void exception_is_thrown_when_updating_new_item_with_wrong_category_id() {
     MenuCategoryEntity category = new MenuCategoryEntity(1L, "category-01");
-    MenuItemDTO in = new MenuItemDTO("item-02", "description", 0.5F, 1L);
+    MenuItemDTO in = new MenuItemDTO("item-02", "description", 0.5F, "Drinks");
     MenuItemEntity existingEntity = new MenuItemEntity(1L, "item-01", null, 1.5F, category);
     when(menuItemRepository.findById(1L)).thenReturn(Optional.of(existingEntity));
-    when(menuCategoryRepository.findById(1L)).thenReturn(Optional.empty());
+    when(menuCategoryRepository.findFirstByName("Drinks")).thenReturn(Optional.empty());
 
     // Test
     Exception exception =
         assertThrows(EntityNotFoundException.class, () -> service.updateMenuItem(1L, in));
 
     // Verify output
-    assertEquals("No menu category found with id 1", exception.getMessage());
+    assertEquals("No menu category found with name Drinks", exception.getMessage());
     verify(menuItemRepository, times(1)).findById(any());
-    verify(menuCategoryRepository, times(1)).findById(any());
+    verify(menuCategoryRepository, times(1)).findFirstByName(any());
     verify(menuItemRepository, times(0)).save(any());
   }
 

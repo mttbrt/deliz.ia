@@ -16,13 +16,13 @@ This simple order-taking app wants to provide restaurants with an easy-to-use re
 
 ## Features
 
-### Front-of-house
+### Front-of-House
 
 - Select the products ordered by a table.
 - Check out an order's status.
 - Generate a table's bill and close the order.
 
-### Kitchen
+### Back-of-House
 
 - Read the open orders.
 - Change an order's status.

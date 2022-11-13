@@ -9,7 +9,7 @@ public interface MenuCategoryService {
 
   MenuCategoryEntity getMenuCategoryById(Long id);
 
-  MenuCategoryEntity createMenuCategory(MenuCategoryDTO id);
+  MenuCategoryEntity createMenuCategory(MenuCategoryDTO dto);
 
   MenuCategoryEntity replaceMenuCategory(Long id, MenuCategoryDTO dto);
 
