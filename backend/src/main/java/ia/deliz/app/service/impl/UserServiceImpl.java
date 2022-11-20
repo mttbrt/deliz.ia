@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public UserEntity createUser(UserDTO dto) {
+  public UserEntity createUser(UserDTO dto) { // TODO; this should check if an user already exists or not
     Optional<RoleEntity> roleEntity = roleRepository.findFirstByName(dto.getRoleName());
     if (roleEntity.isEmpty()) {
       throw new EntityNotFoundException(String.format("No role found with name %s", dto.getRoleName()));
