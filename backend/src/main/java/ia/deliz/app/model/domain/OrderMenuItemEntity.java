@@ -1,6 +1,5 @@
 package ia.deliz.app.model.domain;
 
-import com.google.common.base.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,20 +27,4 @@ public class OrderMenuItemEntity {
 
   @ManyToOne(fetch = FetchType.LAZY)
   private PrepStatusEntity status;
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    OrderMenuItemEntity that = (OrderMenuItemEntity) o;
-    return Objects.equal(id, that.id)
-        && Objects.equal(order, that.order)
-        && Objects.equal(item, that.item)
-        && Objects.equal(status, that.status);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hashCode(id, order, item, status);
-  }
 }

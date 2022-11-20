@@ -1,7 +1,5 @@
 package ia.deliz.app.model.domain;
 
-import com.google.common.base.Objects;
-import ia.deliz.app.model.dto.MenuCategoryDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,28 +21,4 @@ public class MenuCategoryEntity {
 
   @Column(unique = true)
   private String name;
-
-  public MenuCategoryEntity(MenuCategoryDTO dto) {
-    this.name = dto.getName();
-  }
-
-  public MenuCategoryEntity updateNonNullAttributes(MenuCategoryDTO dto) {
-    if (dto.getName() != null) {
-      this.name = dto.getName();
-    }
-    return this;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    MenuCategoryEntity that = (MenuCategoryEntity) o;
-    return Objects.equal(id, that.id) && Objects.equal(name, that.name);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hashCode(id, name);
-  }
 }

@@ -1,12 +1,13 @@
 package ia.deliz.app.model.domain;
 
-import com.google.common.base.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -22,17 +23,4 @@ public class RoleEntity {
 
   @Column(unique = true)
   private String name;
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    RoleEntity that = (RoleEntity) o;
-    return Objects.equal(id, that.id) && Objects.equal(name, that.name);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hashCode(id, name);
-  }
 }
