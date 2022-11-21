@@ -5,13 +5,18 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 @Entity(name = "tbl_user")
 public class UserEntity {
 
@@ -27,4 +32,12 @@ public class UserEntity {
 
   @ManyToOne(fetch = FetchType.LAZY)
   private RoleEntity role;
+
+  @CreatedDate
+  @Column(nullable = false, updatable = false)
+  private LocalDateTime createdDate;
+
+  @LastModifiedDate
+  @Column(nullable = false)
+  private LocalDateTime lastModifiedDate;
 }
